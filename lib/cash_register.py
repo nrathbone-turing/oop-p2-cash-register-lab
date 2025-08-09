@@ -41,3 +41,14 @@ class CashRegister:
     else:
       self.total = self.total * (1 - (self.discount / 100))
       print(f"After the discount, the total comes to ${int(self.total)}.")
+
+  def void_last_transaction(self):
+    # remove (and return) the last item of previous_transaction from array
+    last_transaction = self.previous_transactions.pop()
+    
+    # adjust price after removing the last item (reducing the subtotal by the subtotal of the removed object)
+    self.total -= last_transaction["subtotal"]
+
+    # adjust items array after removing the last item object from the previous_transactions array
+    for i in range(last_transaction["quantity"]):
+      self.items.remove(last_transaction["item"])
